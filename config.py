@@ -11,24 +11,27 @@ activation = "sigmoid"
 # 5. Range of acceptable initial values for each weight and bias in the neural network.
 weight_range = 1
 # 6. Number of training epochs
-num_epochs = 100
+num_epochs = 5
 # 7. Number of simulation timesteps of the CONSYS per epoch
-num_timesteps = 100
+num_timesteps = 50
 # 8. Learning rate for tuning the controller parameters, whether classic PID or neural-net-based.
 learning_rate = 0.1
 # 9. Range of acceptable values for noise / disturbance (D).
-noise_range = 1
+noise_range = 0.01
 # 10. Cross-sectional area (A) of the bathtub
 A = 1
 # 11. Cross-sectional area (C) of the bathtub’s drain.
-C = 1
+C = 0.05
 # 12. Initial height (H0) of the bathtub water.
 H0 = 1
 # 13. The maximum price (pmax) for Cournot competition
 pmax = 1
 # 14. The marginal cost (cm) for Cournot competition.
-cm = 1
+cm = 0.1
 # 15. At least two parameters for your third plant.
 
-#TODO: make description for these.
+# Initial values for pid parameters
+kp, ki, kd = 0.1, 0.1, 0.1
+
+max_or_min = "min"
 
