@@ -28,6 +28,12 @@ H0 = 1
 pmax = 1
 # 14. The marginal cost (cm) for Cournot competition.
 cm = 0.1
+# Target for the price of the Cournot competition
+target = 0.5
+# q1 initial amount produced
+q1 = 0.5
+# q2 initial amount produced
+q2 = 0.5
 # 15. At least two parameters for your third plant.
 
 # Initial values for pid parameters

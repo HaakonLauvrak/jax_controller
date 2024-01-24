@@ -22,7 +22,7 @@ class CONSYS:
         if config.plant == "bathtub":
             self.plant = BATHTUB_PLANT(config.A, config.C, config.H0)
         elif config.plant == "cournot":
-            self.plant = COURNOT_PLANT(config.pmax, config.cm)
+            self.plant = COURNOT_PLANT(config.pmax, config.cm, config.target)
         else:
             AttributeError(f"{config.plant} not supported")
 
