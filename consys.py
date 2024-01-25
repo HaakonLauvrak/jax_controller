@@ -7,6 +7,7 @@ from controllers.PIDcontroller import PIDCONTROLLER
 from plants.bathtub_plant import BATHTUB_PLANT
 import config
 from plants.cournot_plant import COURNOT_PLANT
+from plants.chemical_reaction_plant import CHEMICAL_REACTION_PLANT
 
 
 class CONSYS:
@@ -22,7 +23,9 @@ class CONSYS:
         if config.plant == "bathtub":
             self.plant = BATHTUB_PLANT(config.A, config.C, config.H0)
         elif config.plant == "cournot":
-            self.plant = COURNOT_PLANT(config.pmax, config.cm, config.target)
+            self.plant = COURNOT_PLANT(config.pmax, config.cm, config.cournot_target, config.q1, config.q2)
+        elif config.plant == "chemical_reaction":
+            self.plant = CHEMICAL_REACTION_PLANT(config.k, config.chemical_plant_target, config.initial_concentration)
         else:
             AttributeError(f"{config.plant} not supported")
 
@@ -42,7 +45,7 @@ class CONSYS:
         if config.controller == "classic":
             self.params = jnp.array([config.kp, config.ki, config.kd])
         elif config.controller == "ann":
-            for _ in range(config.num_layers):
+            for _ in range(config.num_layers): 
                 self.params.append(
                     np.random.uniform(-config.weight_range, config.weight_range))
         else:
@@ -58,6 +61,7 @@ class CONSYS:
             epoch_error_history.append(avg_error)
             self.params = self.update_params(self.params, gradients)
             self.param_history.append(self.params)
+            print(f"Average error: {avg_error}")
         
         return epoch_error_history, self.param_history
 
@@ -66,7 +70,8 @@ class CONSYS:
             "error_history": [0, 0],
             "disturbance": 0,
             "control_signal": 0,
-            "value": self.plant.get_inital_value(),
+            "value": self.plant.get_initial_value(),
+            "additional": self.plant.get_additional_values()
         }
 
         for _ in range(self.num_timesteps):
@@ -87,4 +92,5 @@ class CONSYS:
         new_params = []
         for i in range(len(params)):
             new_params.append(params[i] + q * self.learning_rate * gradients[i])
+        print(new_params)
         return new_params

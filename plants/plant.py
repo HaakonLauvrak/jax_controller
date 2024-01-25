@@ -9,10 +9,15 @@ class PLANT:
     def execute_timestep(args):
         pass
 
+    @abstractmethod
     def get_initial_value(self):
-        return self.target
+        pass
 
+    @abstractmethod
     def calculate_error(self, state):
-        error = self.target - state["value"]
-        return error
+        pass
+
+    @abstractmethod
+    def get_additional_values(self):
+        return None
     

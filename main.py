@@ -1,11 +1,12 @@
 from consys import CONSYS
 import matplotlib.pyplot as plt
 import config
+import jax.numpy as jnp
 
 def main():
+
     consys = CONSYS()
     error_history, params_history = consys.run_system()
-
     #plot params history
     kp_history = []
     ki_history = []
