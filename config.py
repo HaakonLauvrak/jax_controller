@@ -5,10 +5,10 @@ controller = "ann"
 # 3. Number of layers and number of neurons in each layer of the neural network.
 layers = [5, 10, 5]
 # 4. Activation function used for each layer of the neural network. Possible values: "tanh", "sigmoid", "RELU".
-activation_function = "tanh"
+activation_function = "relu"
 # 5. Range of acceptable initial values for each weight and bias in the neural network.
 # For bathtub, cournot, weight range = 0.001 works good.
-weight_range = 0.001
+weight_range = 0.1
 # 6. Number of training epochs
 num_epochs = 20
 # 7. Number of simulation timesteps of the CONSYS per epoch
@@ -17,15 +17,15 @@ num_timesteps = 50
 # 8. Learning rate for tuning the controller parameters, whether classic PID or neural-net-based.
 #For classic chemical_reaction: learning_rate = 0.05 works good. 
 # For classic bathtub and cournot: learning_rate = 0.3 works good.
-# For ann bathtub: learning_rate = 0.01 works good.
-# For ann cournot: learning_rate = 0.3 works good.
-learning_rate = 0.3
+# For ann sigmoid bathtub: learning_rate = 0.01 works good.
+# For ann cournot sigmoid: learning_rate = 0.3 works good.
+learning_rate = 0.01
 # 9. Range of acceptable values for noise / disturbance (D).
 # For classic chemical_reaction: noise_range = 0.05 works good.
 # For classic bathtub and cournot: noise_range = 0.01 works good.
 # For ann bathtub: noise_range = 0.1 works good.
 # For ann cournot: noise_range = 0.01 works good.
-noise_range = 0.1
+noise_range = 0.01
 # Initial values for pid parameters
 #For classic chemical_reaction: kp = 0.3, ki = 0.3, kd = 0.3 works good.
 #For classic bathtub and cournot: kp = 0.1, ki = 0.1, kd = 0.1 works good.
