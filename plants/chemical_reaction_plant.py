@@ -15,7 +15,6 @@ class CHEMICAL_REACTION_PLANT(PLANT):
 
         # Update concentration based on reaction rate and control signal
         new_concentration = current_concentration - self.k * current_concentration + control_signal + disturbance
-
         return new_concentration
 
     def get_initial_value(self):

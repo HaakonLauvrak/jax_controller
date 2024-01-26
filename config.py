@@ -1,25 +1,31 @@
 # 1. The plant to simulate: "bathtub", "cournot", "chemical_reaction"
-plant = "cournot"
+plant = "bathtub"
 # 2. The controller to use: "classic" or "ann"
-controller = "classic"
+controller = "ann"
 # 3. Number of layers and number of neurons in each layer of the neural network.
-num_layers = 1
+layers = [5, 10, 5]
 # 4. Activation function used for each layer of the neural network. Possible values: "tanh", "sigmoid", "RELU".
-activation = "sigmoid"
+activation_function = "tanh"
 # 5. Range of acceptable initial values for each weight and bias in the neural network.
-weight_range = 1
+# For bathtub, cournot, weight range = 0.001 works good.
+weight_range = 0.001
 # 6. Number of training epochs
 num_epochs = 20
 # 7. Number of simulation timesteps of the CONSYS per epoch
+# For ann chemical_reaction: num_timesteps = 10 works good. Struggles with higher timesteps for some reason.
 num_timesteps = 50
 # 8. Learning rate for tuning the controller parameters, whether classic PID or neural-net-based.
 #For classic chemical_reaction: learning_rate = 0.05 works good. 
-# For classic bathtub and cournot, learning_rate = 0.3 works good.
+# For classic bathtub and cournot: learning_rate = 0.3 works good.
+# For ann bathtub: learning_rate = 0.01 works good.
+# For ann cournot: learning_rate = 0.3 works good.
 learning_rate = 0.3
 # 9. Range of acceptable values for noise / disturbance (D).
 # For classic chemical_reaction: noise_range = 0.05 works good.
 # For classic bathtub and cournot: noise_range = 0.01 works good.
-noise_range = 0.01
+# For ann bathtub: noise_range = 0.1 works good.
+# For ann cournot: noise_range = 0.01 works good.
+noise_range = 0.1
 # Initial values for pid parameters
 #For classic chemical_reaction: kp = 0.3, ki = 0.3, kd = 0.3 works good.
 #For classic bathtub and cournot: kp = 0.1, ki = 0.1, kd = 0.1 works good.
@@ -50,7 +56,8 @@ q2 = 0.5
 
 # Chemical reaction plant
 # 16. The rate constant (k) for the chemical reaction
-k = 0.2
+# For ann: k = 0.01 works good. Struggles with high k, as control signal is limited to [-1, 1] with sign
+k = 0.01
 # 17. The target concentration for the chemical reaction
 chemical_plant_target = 10
 # 18. The initial concentration for the chemical reaction
