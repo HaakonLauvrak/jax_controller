@@ -103,6 +103,5 @@ class CONSYS:
         return new_params 
     
     def update_params_ann(self, params, gradients):
-        print(gradients)
         return [(w - self.learning_rate * dw, b - self.learning_rate * db) 
                 for (w, b), (dw, db) in zip(params, gradients)]

@@ -15,7 +15,7 @@ class BATHTUB_PLANT(PLANT):
     control_signal = state["control_signal"]
     volume = state["value"] * self.A
     drain = self.C * jnp.sqrt(2 * 9.8 * state["value"])
-    return (volume + disturbance + control_signal - drain) / self.A
+    return max((volume + disturbance + control_signal - drain) / self.A, 0)
 
   def get_initial_value(self):
     return self.target
