@@ -14,4 +14,4 @@ This project is a simulation of a control system. It includes different types of
 
 ## Usage
 
-To run the simulation, adjust the configuration parameters in `config.py` as needed, and then run `main.py`. The simulation will run for the specified number of epochs, and the average error for each epoch will be printed to the console.
+To run the simulation, adjust the configuration parameters in `config.py` as needed, and then run `main.py`. The simulation will run for the specified number of epochs, and the average mean squared error for each epoch will be printed to the console. The error will be plotted and presented as a graph when the simulation is complete. 
