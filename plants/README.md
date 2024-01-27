@@ -72,3 +72,5 @@ This class inherits from the `PLANT` class and represents a chemical reaction in
 - `get_initial_value()`: This method returns the initial concentration of the chemical.
 
 - `calculate_error(state)`: This method calculates the deviation of the current concentration from the target concentration. It takes the current `state` of the reaction and returns this error value.
+
+**Note:** This documentation is AI-generated based on the code we have written ourselves. We have read through it to ensure it is accurate.  

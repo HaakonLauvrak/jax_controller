@@ -26,3 +26,5 @@ This class represents the control system that includes the plant and the control
 - `update_params_classic`: Updates the parameters of a classic controller. It takes the current parameters and the gradients, and returns the updated parameters. The direction of the update depends on whether the goal is to maximize or minimize the error.
 
 - `update_params_ann`: Updates the parameters of an ANN controller. It takes the current parameters and the gradients, and returns the updated parameters. The weights and biases of the ANN are updated separately.
+
+**Note:** This documentation is AI-generated based on the code we have written ourselves. We have read through it to ensure it is accurate.  

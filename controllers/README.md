@@ -43,3 +43,5 @@ This class inherits from the `CONTROLLER` class and implements a Proportional-In
     - `state`: A dictionary containing the current state of the system. It should have a key `"error_history"` that maps to a list of past error values. The most recent error is at the end of the list.
 
 The `compute_control_signal` method computes the control signal based on the PID formula: `P*error + I*integral(error) + D*derivative(error)`, where `P`, `I`, and `D` are the proportional, integral, and derivative gains, respectively.
+
+**Note:** This documentation is AI-generated based on the code we have written ourselves. We have read through it to ensure it is accurate.  
