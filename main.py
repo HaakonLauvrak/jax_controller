@@ -1,6 +1,6 @@
-from consys import CONSYS
+from consys.consys import CONSYS
 import matplotlib.pyplot as plt
-import config
+import config.config as config
 import jax.numpy as jnp
 
 def main():
