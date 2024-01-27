@@ -2,7 +2,6 @@ import numpy as np
 from controllers.controller import CONTROLLER, abstractmethod
 import jax.numpy as jnp
 import numpy as np
-import jax 
 import random
 
 class ANNCONTROLLER(CONTROLLER):

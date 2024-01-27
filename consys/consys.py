@@ -5,15 +5,21 @@ import jax.numpy as jnp
 from controllers.ANNcontroller import ANNCONTROLLER
 from controllers.PIDcontroller import PIDCONTROLLER
 from plants.bathtub_plant import BATHTUB_PLANT
-import config
+import config.config as config
 from plants.cournot_plant import COURNOT_PLANT
 from plants.chemical_reaction_plant import CHEMICAL_REACTION_PLANT
 
 
 class CONSYS:
+    """
+    The CONSYS class represents a control system. It initializes the control system with the specified plant and controller configurations,
+    and provides methods to run the system and update the parameters.
+    """
 
     def __init__(self):
-
+        """
+        Initializes a new instance of the CONSYS class.
+        """
         self.num_epochs = config.num_epochs
         self.num_timesteps = config.num_timesteps
         self.learning_rate = config.learning_rate
@@ -30,16 +36,23 @@ class CONSYS:
             self.plant = CHEMICAL_REACTION_PLANT(
                 config.k, config.chemical_plant_target, config.initial_concentration)
         else:
-            AttributeError(f"{config.plant} not supported")
+            raise AttributeError(f"{config.plant} not supported")
 
         if config.controller == "classic":
             self.controller = PIDCONTROLLER()
         elif config.controller == "ann":
             self.controller = ANNCONTROLLER(config.layers, config.activation_function, config.weight_range)
         else:
-            AttributeError(f"{config.controller} not supported")
+            raise AttributeError(f"{config.controller} not supported")
 
     def run_system(self):
+        """
+        Runs the control system for the specified number of epochs.
+
+        Returns:
+            epoch_error_history (list): A list of average error values for each epoch.
+            param_history (list): A list of parameter values for each epoch.
+        """
         gradfunc = jax.value_and_grad(self.run_one_epoch, argnums=0)
 
         # Initialize params
@@ -48,7 +61,7 @@ class CONSYS:
         elif config.controller == "ann":
             self.params = self.controller.gen_jaxnet_params()
         else:
-            AttributeError(f"{config.controller} not supported")
+            raise AttributeError(f"{config.controller} not supported")
 
         epoch_error_history = []
         counter = 0
@@ -64,6 +77,15 @@ class CONSYS:
         return epoch_error_history, self.param_history
 
     def run_one_epoch(self, params):
+        """
+        Runs one epoch of the control system with the given parameters.
+
+        Args:
+            params (list): The parameters of the controller.
+
+        Returns:
+            mean_squared_error (float): The mean squared error of the control system for the epoch.
+        """
         state = {
             "error_history": [0, 0],
             "disturbance": 0,
@@ -84,14 +106,34 @@ class CONSYS:
         return mean_squared_error
 
     def update_params(self, params, gradients):
+        """
+        Updates the parameters of the controller based on the gradients.
+
+        Args:
+            params (list): The current parameters of the controller.
+            gradients (list): The gradients of the parameters.
+
+        Returns:
+            new_params (list): The updated parameters of the controller.
+        """
         if config.controller == "classic":
             return self.update_params_classic(params, gradients)
         elif config.controller == "ann":
             return self.update_params_ann(params, gradients)
         else:
-            AttributeError(f"{config.controller} not supported")
+            raise AttributeError(f"{config.controller} not supported")
         
     def update_params_classic(self, params, gradients):  
+        """
+        Updates the parameters of the classic controller.
+
+        Args:
+            params (list): The current parameters of the controller.
+            gradients (list): The gradients of the parameters.
+
+        Returns:
+            new_params (list): The updated parameters of the controller.
+        """
         if config.max_or_min == "max":
             q = 1
         else:
@@ -103,5 +145,15 @@ class CONSYS:
         return new_params 
     
     def update_params_ann(self, params, gradients):
+        """
+        Updates the parameters of the ANN controller.
+
+        Args:
+            params (list): The current parameters of the controller.
+            gradients (list): The gradients of the parameters.
+
+        Returns:
+            new_params (list): The updated parameters of the controller.
+        """
         return [(w - self.learning_rate * dw, b - self.learning_rate * db) 
                 for (w, b), (dw, db) in zip(params, gradients)]
