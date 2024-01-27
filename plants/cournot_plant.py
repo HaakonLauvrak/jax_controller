@@ -1,7 +1,6 @@
 from plants.plant import PLANT
 import jax.numpy as jnp
 
-
 class COURNOT_PLANT(PLANT):
 
   def __init__(self, pmax, cm, target, q1, q2):
@@ -10,20 +9,6 @@ class COURNOT_PLANT(PLANT):
     self.cm = cm
     self.q1_0 = q1
     self.q2_0 = q2
-    
-  # def execute_timestep(self, state):
-  #   disturbance = state["disturbance"]
-  #   values = state["value"]
-  #   control_signal = state["control_signal"]
-  #   new_values = {}
-
-  #   new_values["q1"] = jnp.clip(values["q1"] + control_signal, 0, 1)
-  #   new_values["q2"] = jnp.clip(values["q2"] + disturbance, 0, 1)
-
-  #   q = new_values["q1"] + new_values["q2"] # q = q1 + q2
-  #   p = self.pmax - q #price = pmax - q
-  #   new_values["profit"] = new_values["q1"] * (p - self.cm) #profit = q1 * (price - marginal cost)
-  #   return new_values
   
   def execute_timestep(self, state):
         disturbance = state["disturbance"]

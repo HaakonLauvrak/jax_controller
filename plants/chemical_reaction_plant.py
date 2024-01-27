@@ -1,5 +1,4 @@
 from plants.plant import PLANT
-import jax.numpy as jnp
 
 class CHEMICAL_REACTION_PLANT(PLANT):
 
